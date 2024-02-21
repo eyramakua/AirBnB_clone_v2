@@ -13,9 +13,10 @@ from models.review import Review
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
 
+
 class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
-    __file_path = 'file.json'
+    __file_path = "file.json"
     __objects = {}
 
     def all(self, cls=None):
@@ -30,18 +31,17 @@ class FileStorage:
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
-        if obj is None:
+        if obj is not None:
             key = obj.__class__.__name__ + "." + obj.id
             self.__objects[key] = obj
 
     def save(self):
         """Saves storage dictionary to file"""
-        with open(FileStorage.__file_path, 'w') as f:
-            temp = {}
-            temp.update(FileStorage.__objects)
-            for key, val in temp.items():
-                temp[key] = val.to_dict()
-            json.dump(temp, f)
+        json_objects = {}
+        for key in self.__objects:
+            json_objects[key] = self.__objects[key].to_dict()
+        with open(self.__file__path, 'w') as f:
+            json.dump(json_objects, f)
 
     def reload(self):
         """Loads storage dictionary from file"""
