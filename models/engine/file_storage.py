@@ -40,14 +40,13 @@ class FileStorage:
         """Loads storage dictionary from file"""
         try:
             with open(self.__file_path, "r") as json_file:
-                temp  = json.load(json_file)
+                temp = json.load(json_file)
             for id, dict in temp.items():
                 temp_instance = models.dummy_classes[dict["__class__"]](**dict)
                 self.__objects[id] = temp_instance
-        except:
-            pass
+        pass
 
-     def close(self):
+    def close(self):
         """call reload() method for deserializing the JSON file to objects """
         self.reload()
 
