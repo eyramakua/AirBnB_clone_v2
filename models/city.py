@@ -2,24 +2,21 @@
 """ City Module for HBNB project """
 
 from models.base_model import BaseModel, Base
-import models
-from os import getenv
-import sqlalchemy
+import models.state import State
+from os import environ
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
+
+storage_engine = environ.get("HBNB_TYPE_STORAGE")
 
 
 class City(BaseModel, Base):
     """ representation of city """
-    if models.storage_t == "db":
-        __tablename__ = 'cities'
-        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+    if (storage_engine == "db"):
+        __tablename__ = "cities"
+        state_id = Column(String(60), ForeignKey(State.id))
         name = Column(String(128), nullable=False)
-        place = relationship("Place", backref="cities")
+        places = relationship("Place", backref="cities")
     else:
-        state_id = ""
         name = ""
-
-    def __init__(self, *args, **kwargs):
-        """initializes city"""
-        super().__init__(*args, **kwargs)
+        state_id = ""
