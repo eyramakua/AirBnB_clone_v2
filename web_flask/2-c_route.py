@@ -3,27 +3,26 @@
 starts a web flask application
 """
 
-from flask import Flask, escape
+from flask import Flask
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def index():
+def hello():
     """function to return Hellow HBNB"""
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
-def hello():
-    """function to return Hellow HBNB"""
+def hbnb():
+    """function to return HBNB"""
     return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def ctext(text):
-    """function to didplay C"""
-    text = text.replace("_", " ")
-    return 'C {}'.format(escape(text))
+def text(text):
+    """function to display C"""
+    return 'C {}'.format(text.replace("_", " "))
 
 
 if __name__ == '__main__':
